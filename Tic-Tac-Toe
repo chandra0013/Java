@@ -1,0 +1,68 @@
+// Java: Tic Tac Toe Game
+import java.util.*;
+
+public class TicTacToe {
+    private static char[][] board = new char[3][3];
+
+    public static void initializeBoard() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                board[i][j] = '-';
+            }
+        }
+    }
+
+    public static void printBoard() {
+        for (char[] row : board) {
+            for (char cell : row) {
+                System.out.print(cell + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static boolean placeMark(int row, int col, char mark) {
+        if (board[row][col] == '-') {
+            board[row][col] = mark;
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean checkWin(char mark) {
+        for (int i = 0; i < 3; i++) {
+            if (board[i][0] == mark && board[i][1] == mark && board[i][2] == mark) return true;
+            if (board[0][i] == mark && board[1][i] == mark && board[2][i] == mark) return true;
+        }
+        if (board[0][0] == mark && board[1][1] == mark && board[2][2] == mark) return true;
+        if (board[0][2] == mark && board[1][1] == mark && board[2][0] == mark) return true;
+        return false;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        initializeBoard();
+        char currentPlayer = 'X';
+        boolean gameRunning = true;
+
+        while (gameRunning) {
+            printBoard();
+            System.out.println("Player " + currentPlayer + ", enter row and column (0, 1, or 2): ");
+            int row = scanner.nextInt();
+            int col = scanner.nextInt();
+
+            if (placeMark(row, col, currentPlayer)) {
+                if (checkWin(currentPlayer)) {
+                    printBoard();
+                    System.out.println("Player " + currentPlayer + " wins!");
+                    gameRunning = false;
+                } else {
+                    currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+                }
+            } else {
+                System.out.println("Cell already occupied. Try again.");
+            }
+        }
+        scanner.close();
+    }
+}
