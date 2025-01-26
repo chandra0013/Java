@@ -1,0 +1,47 @@
+// Java: Expense Tracker
+import java.util.*;
+
+class Expense {
+    String category;
+    double amount;
+
+    Expense(String category, double amount) {
+        this.category = category;
+        this.amount = amount;
+    }
+
+    public String toString() {
+        return category + " | Rs. " + amount;
+    }
+}
+
+class ExpenseTracker {
+    private List<Expense> expenses = new ArrayList<>();
+
+    void addExpense(String category, double amount) {
+        expenses.add(new Expense(category, amount));
+    }
+
+    void displayExpenses() {
+        if (expenses.isEmpty()) System.out.println("No expenses recorded.");
+        else expenses.forEach(System.out::println);
+    }
+
+    double calculateTotal() {
+        return expenses.stream().mapToDouble(e -> e.amount).sum();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        ExpenseTracker tracker = new ExpenseTracker();
+
+        tracker.addExpense("Food", 500);
+        tracker.addExpense("Transport", 300);
+        tracker.addExpense("Entertainment", 700);
+
+        System.out.println("\nExpenses:");
+        tracker.displayExpenses();
+        System.out.println("Total Expense: Rs. " + tracker.calculateTotal());
+    }
+}
