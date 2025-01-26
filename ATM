@@ -1,0 +1,38 @@
+import java.util.*;
+
+class ATM {
+    private int balance;
+
+    ATM(int initialBalance) {
+        balance = initialBalance;
+    }
+
+    void deposit(int amount) {
+        balance += amount;
+        System.out.println("Deposited: Rs. " + amount);
+    }
+
+    void withdraw(int amount) {
+        if (amount > balance) {
+            System.out.println("Insufficient balance.");
+        } else {
+            balance -= amount;
+            System.out.println("Withdrawn: Rs. " + amount);
+        }
+    }
+
+    void checkBalance() {
+        System.out.println("Current Balance: Rs. " + balance);
+    }
+}
+
+public class ATMSimulation {
+    public static void main(String[] args) {
+        ATM atm = new ATM(10000);
+
+        atm.checkBalance();
+        atm.deposit(5000);
+        atm.withdraw(3000);
+        atm.checkBalance();
+    }
+}
