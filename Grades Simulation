@@ -1,0 +1,36 @@
+// Java: Student Grade Management
+import java.util.*;
+
+class Student {
+    String name;
+    int id;
+    Map<String, Integer> grades = new HashMap<>();
+
+    Student(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    void addGrade(String subject, int grade) {
+        grades.put(subject, grade);
+    }
+
+    double calculateAverage() {
+        return grades.values().stream().mapToInt(Integer::intValue).average().orElse(0.0);
+    }
+
+    public String toString() {
+        return id + " | " + name + " | Average: " + calculateAverage();
+    }
+}
+
+public class StudentGradeManagement {
+    public static void main(String[] args) {
+        Student student = new Student(1, "Alice");
+        student.addGrade("Math", 85);
+        student.addGrade("Science", 90);
+        student.addGrade("History", 78);
+
+        System.out.println(student);
+    }
+}
